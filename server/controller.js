@@ -1,8 +1,17 @@
+const database = require("./db.json")
+
 module.exports = {
 
+    getAllCompliments: (req, res) => {
+        res.status(200).send(database[0].data)
+    },
+
+    getAllFortunes: (req, res) => {
+        res.status(200).send(database[1].data)
+    },
+
     getCompliment: (req, res) => {
-        const compliments = ["Gee, you're a smart cookie!", "Cool shirt!", "Your Javascript skills are stellar."];
-      
+        const compliments = database[0].data
         // choose random compliment
         let randomIndex = Math.floor(Math.random() * compliments.length);
         let randomCompliment = compliments[randomIndex];
@@ -10,13 +19,7 @@ module.exports = {
         res.status(200).send(randomCompliment);
     },
     getFortune: (req, res) => {
-        const fortunes = [
-            "A feather in the hand is better than a bird in the air.",
-            "A short pencil is usually better than a long memory any day.",
-            "Don’t confuse recklessness with confidence.", 
-            "Imagination rules the world.", 
-            "Miles are covered one step at a time."
-        ]
+        const fortunes = database[1].data
 
         let randomIndex = Math.floor(Math.random() * fortunes.length)
         let randomFortune = fortunes[randomIndex]

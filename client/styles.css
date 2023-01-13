@@ -1,7 +1,7 @@
 body {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
@@ -9,4 +9,8 @@ body {
     display: flex;
     flex-direction: column;  
     justify-content: center; 
+}
+
+#center-view-div {
+   
 }
