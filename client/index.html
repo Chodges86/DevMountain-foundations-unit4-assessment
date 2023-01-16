@@ -3,45 +3,83 @@
   <head>
     <title>Back End Assessment</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body class="container">
     <div id="header-div">
-      <h1>Unit 4 Assessment</h1>
+      <h1>DevMountain</h1>
+      <h2>Unit 4 Assessment</h2>
     </div>
     <div id="content-div">
       <div id="button-div">
         <button id="complimentButton">Get a compliment</button>
         <button id="fortuneButton">Get a fortune</button>
         <form id="add-compliment">
-          <label for="add-compliment-input">Add a Compliment:</label><br>
-          <input type="text" id="add-compliment-input"><br>
+          <label for="add-compliment-input">Add a Compliment:</label><br />
+          <input type="text" id="add-compliment-input" /><br />
           <button>Add Compliment</button>
         </form>
         <form id="add-fortune">
-          <label for="add-fortune-input">Add a Fortune:</label><br>
-          <input type="text" id="add-fortune-input"><br>
+          <label for="add-fortune-input">Add a Fortune:</label><br />
+          <input type="text" id="add-fortune-input" /><br />
           <button>Add Fortune</button>
         </form>
         <form id="del-compliment">
-          <label for="del-compliment-input">Delete a Compliment:</label><br>
-          <input type="number" id="del-compliment-input" placeholder="# of compliment"><br>
+          <label for="del-compliment-input">Delete a Compliment:</label><br />
+          <input
+            type="number"
+            id="del-compliment-input"
+            placeholder="# of compliment"
+          /><br />
           <button>Delete Compliment</button>
         </form>
         <form id="del-fortune">
-          <label for="del-fortune-input">Delete a Fortune:</label><br>
-          <input type="number" id="del-fortune-input" placeholder="# of fortune"><br>
+          <label for="del-fortune-input">Delete a Fortune:</label><br />
+          <input
+            type="number"
+            id="del-fortune-input"
+            placeholder="# of fortune"
+          /><br />
           <button>Delete Fortune</button>
         </form>
         <form id="update-compliment">
-          <label for="update-compliment-input">Change a Compliment:</label><br>
-          <input type="number" id="update-comp-number-input" placeholder="# of compliment"><br>
-          <input type="text" id="update-comp-text-input" placeholder="Type Compliment Here"><br>
+          <label for="update-compliment-input">Change a Compliment:</label
+          ><br />
+          <input
+            type="number"
+            id="update-comp-number-input"
+            placeholder="# of compliment"
+          /><br />
+          <input
+            type="text"
+            id="update-comp-text-input"
+            placeholder="Type Compliment Here"
+          /><br />
           <button>Change Compliment</button>
         </form>
         <form id="update-fortune">
-          <label for="update-fortune-input">Change a Fortune</label><br>
-          <input type="number" id="update-fortune-number-input" placeholder="# of fortune"><br>
-          <input type="text" id="update-fortune-text-input" placeholder="Type Fortune Here"><br>
+          <label for="update-fortune-input">Change a Fortune</label><br />
+          <input
+            type="number"
+            id="update-fortune-number-input"
+            placeholder="# of fortune"
+          /><br />
+          <input
+            type="text"
+            id="update-fortune-text-input"
+            placeholder="Type Fortune Here"
+          /><br />
           <button>Change Fortune</button>
         </form>
       </div>
@@ -53,6 +91,8 @@
           <h1>List of all compliments</h1>
           <ol id="compliments"></ol>
         </div>
+        <br>
+        <br>
         <div id="fortune-list">
           <h1>List of all fortunes</h1>
           <ol id="fortunes"></ol>

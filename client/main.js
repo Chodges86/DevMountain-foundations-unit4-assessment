@@ -9,161 +9,108 @@ const addComplimentForm = document.getElementById("add-compliment");
 const addFortuneForm = document.getElementById("add-fortune");
 const delComplimentForm = document.getElementById("del-compliment");
 const delFortuneForm = document.getElementById("del-fortune");
-const updateComplimentForm = document.getElementById("update-compliment")
-const updateFortuneForm = document.getElementById("update-fortune")
+const updateComplimentForm = document.getElementById("update-compliment");
+const updateFortuneForm = document.getElementById("update-fortune");
 
-const getAllCompliments = () => {
-  axios.get("http://localhost:4000/api/compliment/").then((res) => {
-    const data = res.data;
-    data.forEach((compliment) => {
-      const liElement = document.createElement("li");
-      liElement.textContent = compliment;
-      compliments.appendChild(liElement);
-    });
-  });
-};
-
-const getAllFortunes = () => {
-  axios.get("http://localhost:4000/api/fortunes").then((res) => {
-    const data = res.data;
-    data.forEach((fortune) => {
-      const liElement = document.createElement("li");
-      liElement.textContent = fortune;
-      fortunes.appendChild(liElement);
-    });
-  });
-};
-
-const getCompliment = () => {
-  axios.get("http://localhost:4000/api/random-compliment/").then((res) => {
-    const data = res.data;
-    centerMessage.textContent = data;
-  });
-};
+const baseURL = "http://localhost:4000/api";
 
 
+const getAll = () => axios.get(`${baseURL}/get-all`).then(displayLists);
+const getRandom = (e) => axios.get(`${baseURL}/get-random/${e.srcElement.id}`).then(displayRandom);
+const add = (body) => axios.post(`${baseURL}/add`, body).then(updateLists);
+const remove = (id, type) => axios.delete(`${baseURL}/delete/${id}&${type}`).then(updateLists);
+const edit = (id, newText, type) => axios.put(`${baseURL}/update/${id}`, { newText, type }).then(updateLists);
 
-const getFortune = () => {
-  axios.get("http://localhost:4000/api/random-fortune/").then((res) => {
-    const data = res.data;
-    centerMessage.textContent = data;
-  });
-};
-
-
-
-const addCompliment = (body) => {
-  axios
-    .post("http://localhost:4000/api/add-compliment", body)
-    .then(updateCompliments);
-};
-
-const addFortune = (body) => {
-  axios
-    .post("http://localhost:4000/api/add-fortune", body)
-    .then(updateFortunes);
-};
-
-const delCompliment = (id) => {
-  axios
-    .delete(`http://localhost:4000/api/del-compliment/${id}`)
-    .then(updateCompliments);
-};
-
-const delFortune = (id) => {
-    axios
-    .delete(`http://localhost:4000/api/del-fortune/${id}`)
-    .then(updateFortunes)
-}
-
-const editCompliment = (id, newText) => {
-    axios
-    .put(`http://localhost:4000/api/update-compliment/${id}`, {newText})
-    .then(updateCompliments)
-}
-
-const editFortune = (id, newText) => {
-    axios
-    .put(`http://localhost:4000/api/update-fortune/${id}`, {newText})
-    .then(updateFortunes)
-}
-
-function addComplementHandler(e) {
+function addHandler(e) {
   e.preventDefault();
-  const compBody = {
+  const form = e.srcElement.id;
+  let type;
+  let input;
+  if (form === "add-compliment") {
+    type = "compliments";
+    input = document.getElementById("add-compliment-input");
+  } else if (form === "add-fortune") {
+    type = "fortunes";
+    input = document.getElementById("add-fortune-input");
+  }
+  const body = {
+    type: type,
     value: e.target[0].value,
   };
-  const input = document.getElementById("add-compliment-input");
   input.value = "";
-  addCompliment(compBody);
+  add(body);
 }
 
-function addFortuneHandler(e) {
+function deleteHandler(e) {
   e.preventDefault();
-  const fortuneBody = {
-    value: e.target[0].value,
-  };
-  const input = document.getElementById("add-fortune-input");
-  input.value = "";
-  addFortune(fortuneBody);
-}
-
-function deleteComplimentHandler(e) {
-  e.preventDefault();
+  const form = e.srcElement.id;
   const id = Number(e.target[0].value) - 1;
-  const input = document.getElementById("del-compliment-input");
-  input.value = "";
-  delCompliment(String(id));
+
+  if (form === "del-compliment") {
+    const input = document.getElementById("del-compliment-input");
+    input.value = "";
+    remove(id, "compliments ");
+  } else if (form === "del-fortune") {
+    const input = document.getElementById("del-fortune-input");
+    input.value = "";
+    remove(id, "fortunes");
+  }
 }
 
-function deleteFortuneHander(e) {
+function editHandler(e) {
   e.preventDefault();
+  const form = e.srcElement.id;
   const id = Number(e.target[0].value) - 1;
-  const input = document.getElementById("del-fortune-input");
-  input.value = "";
-  delFortune(String(id));
+  const newText = e.target[1].value;
+
+  if (form === "update-compliment") {
+    const numberInput = document.getElementById("update-comp-number-input");
+    const textInput = document.getElementById("update-comp-text-input");
+    numberInput.value = "";
+    textInput.value = "";
+    edit(id, newText, "compliment");
+  } else if (form === "update-fortune") {
+    const numberInput = document.getElementById("update-fortune-number-input");
+    const textInput = document.getElementById("update-fortune-text-input");
+    numberInput.value = "";
+    textInput.value = "";
+    edit(id, newText, "fortune");
+  }
 }
 
-function editComplimentHandler(e) {
-    e.preventDefault()
-    const id = Number(e.target[0].value - 1)
-    const newText = e.target[1].value
-    const numberInput = document.getElementById("update-comp-number-input")
-    const textInput = document.getElementById("update-comp-text-input")
-    numberInput.value = ""
-    textInput.value = ""
-    editCompliment(id, newText)
+function updateLists(res) {
+    compliments.replaceChildren()
+    fortunes.replaceChildren()
+    getAll()
+
 }
 
-function editFortuneHandler(e) {
-    e.preventDefault()
-    const id = Number(e.target[0].value - 1)
-    const newText = e.target[1].value
-    const numberInput = document.getElementById("update-fortune-number-input")
-    const textInput = document.getElementById("update-fortune-text-input")
-    numberInput.value = ""
-    textInput.value = ""
-    editFortune(id, newText)
+function displayLists(res) {
+  const comps = res.data[0].data;
+  const forts = res.data[1].data;
+  comps.forEach((comp) => {
+    const liElement = document.createElement("li");
+    liElement.textContent = comp;
+    compliments.appendChild(liElement);
+  });
+  forts.forEach((fort) => {
+    const liElement = document.createElement("li");
+    liElement.textContent = fort
+    fortunes.appendChild(liElement)
+  });
 }
 
-function updateCompliments(res) {
-  compliments.replaceChildren();
-  getAllCompliments();
+function displayRandom(res) {
+  centerMessage.textContent = res.data;
 }
 
-function updateFortunes(res) {
-  fortunes.replaceChildren();
-  getAllFortunes();
-}
+complimentBtn.addEventListener("click", getRandom);
+fortuneBtn.addEventListener("click", getRandom);
+addComplimentForm.addEventListener("submit", addHandler);
+addFortuneForm.addEventListener("submit", addHandler);
+delComplimentForm.addEventListener("submit", deleteHandler);
+delFortuneForm.addEventListener("submit", deleteHandler);
+updateComplimentForm.addEventListener("submit", editHandler);
+updateFortuneForm.addEventListener("submit", editHandler);
 
-complimentBtn.addEventListener("click", getCompliment);
-fortuneBtn.addEventListener("click", getFortune);
-addComplimentForm.addEventListener("submit", addComplementHandler);
-addFortuneForm.addEventListener("submit", addFortuneHandler);
-delComplimentForm.addEventListener("submit", deleteComplimentHandler);
-delFortuneForm.addEventListener("submit", deleteFortuneHander);
-updateComplimentForm.addEventListener("submit", editComplimentHandler)
-updateFortuneForm.addEventListener("submit", editFortuneHandler)
-
-getAllCompliments();
-getAllFortunes();
+getAll();

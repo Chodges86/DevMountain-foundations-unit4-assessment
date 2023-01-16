@@ -2,74 +2,59 @@ const database = require("./db.json")
 
 module.exports = {
 
-    getAllCompliments: (req, res) => {
-        res.status(200).send(database[0].data)
+    getAll: (req, res) => {
+        res.status(200).send(database)
     },
 
-    getAllFortunes: (req, res) => {
-        res.status(200).send(database[1].data)
+    getRandom: (req, res) => {
+        const button = req.params.button
+        let db;
+        if (button === "complimentButton") {
+            db = 0
+        } else if (button === "fortuneButton") {
+            db = 1
+        }
+        const randomIndex = Math.floor(Math.random() * database[db].data.length)
+        const randomItem = database[db].data[randomIndex]
+        res.status(200).send(randomItem)
     },
 
-    getCompliment: (req, res) => {
-        const compliments = database[0].data
-        // choose random compliment
-        let randomIndex = Math.floor(Math.random() * compliments.length);
-        let randomCompliment = compliments[randomIndex];
-      
-        res.status(200).send(randomCompliment);
+    add: (req, res) => {
+        const { value, type } = req.body
+        let db;
+        if (type === "compliments") {
+            db = 0
+        } else if (type === "fortunes") {
+            db = 1
+        }
+        database[db].data.push(value)
+        res.status(200).send(database[db])
     },
 
-    getFortune: (req, res) => {
-        const fortunes = database[1].data
-
-        let randomIndex = Math.floor(Math.random() * fortunes.length)
-        let randomFortune = fortunes[randomIndex]
-
-        res.status(200).send(randomFortune)
-
-    },
-
-    addCompliment: (req, res) => {
-        const { value } = req.body
-        database[0].data.push(value)
-        res.status(200).send(database[0].data)
-    },
-    
-    addFortune: (req, res) => {
-        const { value } = req.body
-        database[1].data.push(value)
-        res.status(200).send(database[1].data)
-    },
-
-    delCompliment: (req, res) => {
+    remove: (req, res) => {
         const id = Number(req.params.id)
-        
-        database[0].data.splice(id, 1)
-
-        res.status(200).send(database[0].data)
+        const type = req.params.type
+        let db;
+        if (type === "compliments") {
+            db = 0
+        } else if (type === "fortunes") {
+            db = 1
+        }
+        database[db].data.splice(id, 1)
+        res.status(200).send(database[db])
     },
 
-    delFortune: (req, res) => {
+    update: (req, res) => {
         const id = Number(req.params.id)
-
-        database[1].data.splice(id, 1)
-
-        res.status(200).send(database[1].data)
-    },
-
-    updateCompliments: (req, res) => {
-        const id = Number(req.params.id)
-        const { newText } = req.body
-        database[0].data[id] = newText
-        res.status(200).send(database[0].data)
-
-    },
-
-    updateFortune: (req, res) => {
-        const id = Number(req.params.id)
-        const { newText } = req.body
-        database[1].data[id] = newText
-        res.status(200).send(database[1].data)
+        const { newText, type } = req.body
+        let db;
+        if (type === "compliment") {
+            db = 0
+        } else if (type === "fortune") {
+            db = 1
+        }
+        database[db].data[id] = newText
+        res.status(200).send(database[db])
     }
 
 }
