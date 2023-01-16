@@ -18,6 +18,7 @@ module.exports = {
       
         res.status(200).send(randomCompliment);
     },
+
     getFortune: (req, res) => {
         const fortunes = database[1].data
 
@@ -26,6 +27,49 @@ module.exports = {
 
         res.status(200).send(randomFortune)
 
-    }
+    },
+
+    addCompliment: (req, res) => {
+        const { value } = req.body
+        database[0].data.push(value)
+        res.status(200).send(database[0].data)
+    },
     
+    addFortune: (req, res) => {
+        const { value } = req.body
+        database[1].data.push(value)
+        res.status(200).send(database[1].data)
+    },
+
+    delCompliment: (req, res) => {
+        const id = Number(req.params.id)
+        
+        database[0].data.splice(id, 1)
+
+        res.status(200).send(database[0].data)
+    },
+
+    delFortune: (req, res) => {
+        const id = Number(req.params.id)
+
+        database[1].data.splice(id, 1)
+
+        res.status(200).send(database[1].data)
+    },
+
+    updateCompliments: (req, res) => {
+        const id = Number(req.params.id)
+        const { newText } = req.body
+        database[0].data[id] = newText
+        res.status(200).send(database[0].data)
+
+    },
+
+    updateFortune: (req, res) => {
+        const id = Number(req.params.id)
+        const { newText } = req.body
+        database[1].data[id] = newText
+        res.status(200).send(database[1].data)
+    }
+
 }

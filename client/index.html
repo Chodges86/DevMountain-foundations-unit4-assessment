@@ -2,28 +2,65 @@
 <html>
   <head>
     <title>Back End Assessment</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="container">
-    <div id="button-div">
-      <button id="complimentButton">Get a compliment</button>
-      <button id="fortuneButton">Get a fortune</button>
+    <div id="header-div">
+      <h1>Unit 4 Assessment</h1>
     </div>
-    <div id="center-view-div">
-
-    </div>
-    <div id="view-all-div">
-      <div id="compliment-list">
-        <h1>List of all compliments</h1>
+    <div id="content-div">
+      <div id="button-div">
+        <button id="complimentButton">Get a compliment</button>
+        <button id="fortuneButton">Get a fortune</button>
+        <form id="add-compliment">
+          <label for="add-compliment-input">Add a Compliment:</label><br>
+          <input type="text" id="add-compliment-input"><br>
+          <button>Add Compliment</button>
+        </form>
+        <form id="add-fortune">
+          <label for="add-fortune-input">Add a Fortune:</label><br>
+          <input type="text" id="add-fortune-input"><br>
+          <button>Add Fortune</button>
+        </form>
+        <form id="del-compliment">
+          <label for="del-compliment-input">Delete a Compliment:</label><br>
+          <input type="number" id="del-compliment-input" placeholder="# of compliment"><br>
+          <button>Delete Compliment</button>
+        </form>
+        <form id="del-fortune">
+          <label for="del-fortune-input">Delete a Fortune:</label><br>
+          <input type="number" id="del-fortune-input" placeholder="# of fortune"><br>
+          <button>Delete Fortune</button>
+        </form>
+        <form id="update-compliment">
+          <label for="update-compliment-input">Change a Compliment:</label><br>
+          <input type="number" id="update-comp-number-input" placeholder="# of compliment"><br>
+          <input type="text" id="update-comp-text-input" placeholder="Type Compliment Here"><br>
+          <button>Change Compliment</button>
+        </form>
+        <form id="update-fortune">
+          <label for="update-fortune-input">Change a Fortune</label><br>
+          <input type="number" id="update-fortune-number-input" placeholder="# of fortune"><br>
+          <input type="text" id="update-fortune-text-input" placeholder="Type Fortune Here"><br>
+          <button>Change Fortune</button>
+        </form>
       </div>
-      <div id="fortune-list">
-        <h1>List of all fortunes</h1>
+      <div id="center-view-div">
+        <h1 id="center-message"></h1>
+      </div>
+      <div id="view-all-div">
+        <div id="compliment-list">
+          <h1>List of all compliments</h1>
+          <ol id="compliments"></ol>
+        </div>
+        <div id="fortune-list">
+          <h1>List of all fortunes</h1>
+          <ol id="fortunes"></ol>
+        </div>
       </div>
     </div>
-    
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
-    
   </body>
 </html>

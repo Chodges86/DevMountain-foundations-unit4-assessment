@@ -1,4 +1,12 @@
-body {
+#header-div {
+    display: flex;
+    height: 10em;
+    justify-content: center;
+    border-bottom: solid;
+    
+}
+
+#content-div {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,5 +20,34 @@ body {
 }
 
 #center-view-div {
-   
+   display: flex;
+   width: 50em;
+   justify-content: space-evenly;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+button {
+    width: 200px;
+    margin: 15px;
+}
+
+form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form input {
+    margin-left: 20px;
+}
+
+form label {
+    margin-left: 20px;
+}
+
+input [type='number'] {
+    width: 1px;
 }
